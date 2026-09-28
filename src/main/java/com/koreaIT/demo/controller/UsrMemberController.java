@@ -48,7 +48,7 @@ public class UsrMemberController {
 		
 	}
 	
-	@RequestMapping("usr/member/doJoin")
+	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
 	public String doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email) {
 		
@@ -88,7 +88,7 @@ public class UsrMemberController {
 		return Util.jsReplace(Util.f("%s님의 가입이 완료되었습니다.", name), "/");
 	}
 	
-	@RequestMapping("usr/member/doLogin")
+	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
 	public String doLogin(String loginId, String loginPw) {
 		
@@ -115,7 +115,7 @@ public class UsrMemberController {
 		return Util.jsReplace(Util.f("%s님 환영합니다.",member.getNickname()), "/");
 	}
 	
-	@RequestMapping("usr/member/doLogout")
+	@RequestMapping("/usr/member/doLogout")
 	@ResponseBody
 	public String doLogout() {
 		

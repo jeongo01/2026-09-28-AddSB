@@ -57,6 +57,12 @@
 				return;
 			}
 			
+			if(form.nickName.value.length == 0) {
+				alert('닉네임을 입력해주세요.');
+				form.nickName.focus();
+				return;
+			}
+			
 			if(form.cellphoneNum.value.length == 0) {
 				alert('전화번호를 확인해주세요.')
 				form.cellphoneNum.focus();
@@ -144,7 +150,7 @@
 							<td><input class="input input-bordered input-info w-9/12" name="nickName" type="text" placeholder="닉네임을 입력해주세요."/></td>
 						</tr>
 						<tr>
-							<th>번호</th>
+							<th>전화번호</th>
 							<td><input class="input input-bordered input-info w-9/12" name="cellphoneNum" type="text" placeholder="전화번호를 입력해주세요."/></td>
 						</tr>
 						<tr>
