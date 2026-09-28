@@ -13,30 +13,31 @@
 			
 			if(form.loginId.value.length == 0) {
 				alert('아이디를 입력 해주세요.');
-				return false;
+				form.loginId.focus();
+				return;
 			}
 			if(form.loginPw.value.length == 0) {
 				alert('비밀번호를 입력 해주세요.');
-				return false;
+				form.loginPw.focus();
+				return;
 			}
 			
 			form.submit();
 		}
 	</script>
 
-
 	<section class="mt-8 text-xl">
 		<div class="container mx-auto px-3">
-			<form action="doLogin" method="post" onsubmit="loginForm_onsubmit(this) return false;">
+			<form action="doLogin" method="post" onsubmit="loginForm_onsubmit(this); return false;">
 				<div>
 					<table class="table table-lg">
 						<tr>
 							<th>아이디</th>
-							<td><input class="input input-outline input-info w-96" name="loginId" type="text" placeholder="아이디를 입력해주세요."/></td>
+							<td><input class="input input-bordered input-info w-9/12" name="loginId" type="text" placeholder="아이디를 입력해주세요."/></td>
 						</tr>
 						<tr>
 							<th>비밀번호</th>
-							<td><input class="input input-outline input-info w-96" name="loginPw" type="text" placeholder="비밀번호를 입력해주세요."/></td>
+							<td><input class="input input-bordered input-info w-9/12" name="loginPw" type="text" placeholder="비밀번호를 입력해주세요."/></td>
 						</tr>
 						<tr>
 							<td class="text-center" colspan="2"><button class="btn btn-wide btn-outline btn-sm">로그인</button></td>

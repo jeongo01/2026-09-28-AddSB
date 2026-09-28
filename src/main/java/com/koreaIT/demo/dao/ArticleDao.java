@@ -17,8 +17,8 @@ public interface ArticleDao {
 	@Insert("""
 			INSERT INTO article
 				SET regDate = NOW()
-					, updateData = NOW()
-					, memberId = #{memberId};
+					, updateDate = NOW()
+					, memberId = #{memberId}
 					, boardId = #{boardId}
 					, title = #{title}
 					, `body` = #{body}
@@ -65,23 +65,23 @@ public interface ArticleDao {
 			    ON R.relTypeCode = 'article'
 			    AND A.id = R.relId
 			    WHERE A.boardId = #{boardId}
-			    <if text="searchKeyword != ''">
+			    <if test="searchKeyword != ''">
 			    	<choose>
 			    		<when test="searchKeywordType == 'title'">
-			    			AND A.title LIKE CONCAT('%' #{searchKeyword} '%')
+			    			AND A.title LIKE CONCAT('%', #{searchKeyword}, '%')
 			    		</when>
-			    		<when>
-			    			AND A.body LIKE CONCAT('%' #{searchKeyword} '%')
+			    		<when test="searchKeywordType == 'body'">
+			    			AND A.body LIKE CONCAT('%', #{searchKeyword}, '%')
 			    		</when>
 			    		<otherwise>
 			    			AND (
-			    				title LIKE CONCAT('%' #{searchKeyword} '%')
-			    				OR A.body LIKE CONCAT('%' #{searchKeyword} '%')
+			    				title LIKE CONCAT('%', #{searchKeyword}, '%')
+			    				OR A.body LIKE CONCAT('%', #{searchKeyword}, '%')
 			    			)
 			    		</otherwise>
 			    	</choose>
 			    </if>
-			    GROUB BY A.id
+			    GROUP BY A.id
 			    ORDER BY id DESC
 			    LIMIT #{limitStart}, #{itemsInAPage}
 		    </script>
@@ -100,8 +100,8 @@ public interface ArticleDao {
 				FROM article AS A
 				INNER JOIN `member` AS M
 				ON A.memberId = M.id
-				LEFT JOIN recommndPoint AS R
-				ON R.relTypeCode = 'article'  /* article을 기준으로 한다. */
+				LEFT JOIN recommendPoint AS R
+				ON R.relTypeCode = 'article'
 				AND A.id = R.relId
 				WHERE A.id = #{id}
 				GROUB BY A.id
@@ -113,23 +113,23 @@ public interface ArticleDao {
 			SELECT COUNT(*)
 				FROM article	
 				WHERE boardId = #{boardId}
-				<if test="searchKeyword = ''">
+				<if test="searchKeyword != ''">
 					<choose>
-						<when test="searchKeyword = 'title'">
+						<when test="searchKeywordType == 'title'">
 							AND title LIKE CONCAT('%', #{searchKeyword}, '%' );
 						</when>
-						<when test="searchKeyword = 'body'">
+						<when test="searchKeywordType == 'body'">
 							AND `body` LIKE CONCAT('%', #{searchKeyword}, '%')
 						</when>
 						<otherwise>
 							AND (
-								title LIKE CONCAT('%' #{searchKeyword}, '%')
-								OR `body` LIKE CONCAT('%' #{searchKeyword}, '%')
+								title LIKE CONCAT('%', #{searchKeyword}, '%')
+								OR `body` LIKE CONCAT('%', #{searchKeyword}, '%')
 								
 							)
 						</otherwise>
 					</choose>
-				</if
+				</if>
 				
 			</script>
 			""")

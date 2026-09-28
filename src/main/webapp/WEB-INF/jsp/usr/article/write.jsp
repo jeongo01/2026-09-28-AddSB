@@ -24,7 +24,7 @@
 									<div class="w-20"></div>
 									<label class="flex items-center">
 										<input class="radio radio-info radio-xs" name="boardId" type="radio" value="2"/>
-										nbsp;&nbsp;자유
+										&nbsp;&nbsp;자유
 									</label>
 								</div>
 							</td>
@@ -40,7 +40,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="text-center" colspan="2"><buttonㅈ class="btn btn-wide btn-outline btn-sm">작성</button></td>
+							<td class="text-center" colspan="2"><button class="btn btn-wide btn-outline btn-sm">작성</button></td>
 						</tr>
 					</table>
 				</div>

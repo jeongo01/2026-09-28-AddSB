@@ -9,7 +9,7 @@
 
 	<section class="mt-8 text-xl">
 		<div class="container mx-auto px-3">
-			<form action="modify" method="post" onsubmit="submitForm(this); return false">
+			<form action="doModify" method="post" onsubmit="submitForm(this); return false;">
 				<input name="id" type="hidden" value="${article.id }">
 				<input name="body" type="hidden"/>
 				<div>
@@ -24,15 +24,15 @@
 						</tr>
 						<tr>
 							<th>수정일</th>
-							<td>${aticle.updateDate }</td>
+							<td>${article.updateDate }</td>
 						</tr>
 						<tr>
 							<th>작성자</th>
-							<td>${article.wrtierName }</td>
+							<td>${article.writerName }</td>
 						</tr>
 						<tr>
 							<th>제목</th>
-							<td><input class="input input-bordered input-info w-96" name="title" type="text" value="${article.id }" placeholder="제목을 입력해주세요."/></td>
+							<td><input class="input input-bordered input-info w-96" name="title" type="text" value="${article.title }" placeholder="제목을 입력해주세요."/></td>
 						</tr>
 						<tr>
 							<th>내용</th>

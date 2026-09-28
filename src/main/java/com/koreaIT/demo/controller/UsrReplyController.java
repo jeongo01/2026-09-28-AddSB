@@ -1,5 +1,6 @@
 package com.koreaIT.demo.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -9,6 +10,7 @@ import com.koreaIT.demo.vo.Reply;
 import com.koreaIT.demo.vo.ResultData;
 import com.koreaIT.demo.vo.Rq;
 
+@Controller
 public class UsrReplyController {
 
 	private ReplyService replyService;
@@ -23,6 +25,10 @@ public class UsrReplyController {
 	@RequestMapping("/usr/reply/doWrite")
 	@ResponseBody
 	public String doWrite(String relTypeCode, int relId, String body) {
+		
+		if(Util.empty(body)) {
+			return Util.jsHistoryBack("내용을 입력해주세요.");
+		}
 		
 		replyService.writeReply(rq.getLoginedMemberId(), relTypeCode, relId, body);
 		
@@ -69,21 +75,21 @@ public class UsrReplyController {
 	
 	@RequestMapping("/usr/reply/doDelete")
 	@ResponseBody
-	public String doDelete(int id) {
+	public String doDelete(int id) {	
 		
 		Reply reply = replyService.getReplyById(id);
 		
 		if(reply == null) {
-			return Util.jsHistoryBack(Util.f("%d번 게시물에 대한 댓글은 존재하지 않습니다."));
+			return Util.jsHistoryBack(Util.f("%d번 게시물에 대한 댓글은 존재하지 않습니다.", id));
 		}
 		
 		if(rq.getLoginedMemberId() != reply.getMemberId()) {
-			return Util.jsHistoryBack("%d번 게시글 댓글에 접근 권한이 없습니다.");
+			return Util.jsHistoryBack(Util.f("%d번 게시글 댓글에 접근 권한이 없습니다.", id));
 		}
 		
 		replyService.deleteReply(id);
 		
-		return Util.jsReplace(Util.f("%번 게시물에 대한 댓글을 삭제했습니다.", id), Util.f("../article/detail?id=%d", reply.getId()));
+		return Util.jsReplace(Util.f("%d번 게시물에 대한 댓글을 삭제했습니다.", id), Util.f("../article/detail?id=%d", reply.getId()));
 		
 	}
 }

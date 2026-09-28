@@ -9,12 +9,12 @@
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
 		<div class="mb-2 text-base flex justify-between">
-			<div ><span>총: ${aritlceCnt } 개</span></div>
+			<div ><span>총: ${articlesCnt } 개</span></div>
 			
 			<div>
 				<form>
 					<input name="boardId" type="hidden" value="${board.id }"/>
-					<select class="select selcet-info select-sm" data-value="${searchKeywordType }" name="searchKeywordType">
+					<select class="select select-info select-sm" data-value="${searchKeywordType }" name="searchKeywordType">
 						<option value="title">제목</option>
 						<option value="body">내용</option>
 						<option value="title, body">제목 + 내용</option>
@@ -22,7 +22,7 @@
 					
 					<input class="ml-2 input input-bordered input-info w-60 input-sm" name="searchKeyword" type="text" value="${searchKeyword}" placeholder="검색어를 입력해주세요." maxlength="20"/>
 					
-					<button class="ml-2 btn btn-outline btm-sm">검색</button>
+					<button class="ml-2 btn btn-outline btn-sm">검색</button>
 				</form>
 			</div>
 			
@@ -53,7 +53,7 @@
 				</tbody>
 			</table>
 		</div>
-		<c:if test="${rq.getLoginedMemberId != 0}">
+		<c:if test="${rq.loginedMemberId != 0}">
 			<div class="mt-2 flex justify-end">
 				<a class="btn btn-outline btn-sm" href="write">글쓰기</a>
 			</div>
@@ -61,21 +61,21 @@
 		
 		<div class="mt-2 flex justify-center">
 			<div class="join">
-				<c:set var="baseUri" value="?boardId=${board.id }&searchKeywordType=${searchKeywordType }&searchKeyword=${searchKeyword }" />
+				<c:set var="baseUri" value="?boardId=${board.id}&searchKeywordType=${searchKeywordType}&searchKeyword=${searchKeyword}" />
 				
-				<c:if test="${from != 1 }">
-					<a class="join-item btn btn-square btn-sm" href="${baseUri } $page=1">&lt;&lt;</a>
-					<a class="join-item btn btn-square btn-sm" href="${baseUri } $page=${from - 1}">&lt;</a>
+				<c:if test="${from != 1}">
+					<a class="join-item btn btn-square btn-sm" href="${baseUri}&page=1">&lt;&lt;</a>
+					<a class="join-item btn btn-square btn-sm" href="${baseUri}&page=${from - 1}">&lt;</a>
 				</c:if>
 				
-				<c:forEach begin="${from }" end="${end }" var="i">
-					<a class="join-item btn btn-square btn-sm ${page == i ? 'btn-active' : '' }" href="${baseUri } $page=${i }">${i }</a>
+				<c:forEach begin="${from}" end="${end}" var="i">
+					<a class="join-item btn btn-square btn-sm ${page == i ? 'btn-active' : '' }" href="${baseUri}&page=${i}">${i}</a>
 					
 				</c:forEach>
 				
-				<c:if test="${end != pagesCnt }">
-					<a class="join-item btn btn-square btn-sm" href="${baseUri } $page=${end + 1 }">&gt;</a>
-					<a class="join-item btn btn-square btn-sm" href="${baseUri } $page=${pageCnt }">&gt;&gt;</a>
+				<c:if test="${end != pagesCnt}">
+					<a class="join-item btn btn-square btn-sm" href="${baseUri}&page=${end + 1}">&gt;</a>
+					<a class="join-item btn btn-square btn-sm" href="${baseUri}&page=${pagesCnt}">&gt;&gt;</a>
 				</c:if>
 				
 			</div>

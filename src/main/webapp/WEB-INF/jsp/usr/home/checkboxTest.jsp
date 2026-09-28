@@ -11,22 +11,22 @@
 			<div>
 				<form action="checkboxSubmit">
 					<label>
-						<input type="checkbox" name="id" value="1" />
+						<input type="checkbox" name="ids" value="1" />
 						테스트1
 					</label>
 					<br />
 					<label>
-						<input type="checkbox" name="id" value="2"/>
+						<input type="checkbox" name="ids" value="2"/>
 						테스트2
 					</label>
 					<br />
 					<label>
-						<input type="checkbox" name="id" value="3" />
+						<input type="checkbox" name="ids" value="3" />
 						테스트3
 					</label>
 					<br />
 					<label>
-						<input type="checkbox" name="id" value="4"/>
+						<input type="checkbox" name="ids" value="4"/>
 						테스트4
 					</label>
 					<br />

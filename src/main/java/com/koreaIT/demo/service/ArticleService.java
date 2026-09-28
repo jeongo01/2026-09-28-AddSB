@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import com.koreaIT.demo.dao.ArticleDao;
 import com.koreaIT.demo.vo.Article;
-import com.koreaIT.demo.vo.RecommendPoint;
 
 
 @Service

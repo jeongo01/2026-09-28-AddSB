@@ -53,11 +53,11 @@ public class Rq {
 	}
 	
 	public void login(Member member) {
-		session.setAttribute("loginMemberId", member.getId());
+		session.setAttribute("loginedMemberId", member.getId());
 	}
 	
 	public void logout() {
-		session.removeAttribute("loginMemberId");
+		session.removeAttribute("loginedMemberId");
 	}
 
 	public String jsReturnOnView(String msg) {

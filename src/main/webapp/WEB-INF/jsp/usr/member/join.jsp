@@ -14,7 +14,7 @@
 			form.loginPw.value = form.loginPw.value.trim();
 			form.loginPwChk.value = form.loginPwChk.value.trim();
 			form.name.value = form.name.value.trim();
-			form.nickName.value = form. nickName.trim();
+			form.nickName.value = form.nickName.value.trim();
 			form.cellphoneNum.value = form.cellphoneNum.value.trim();
 			form.email.value = form.email.value.trim();
 			
@@ -25,7 +25,7 @@
 			}
 			
 			if(form.loginId.value != validLoginId) {
-				alert(form.loginId + '사용할 수 없는 아이디입니다.')
+				alert(form.loginId.value + '는 사용할 수 없는 아이디입니다.')
 				form.loginId.value = '';
 				form.loginId.focus();
 				return;
@@ -39,7 +39,7 @@
 			
 			if(form.loginPwChk.value.length == 0) {
 				alert('비밀번호를 확인 입력해주세요.')
-				form.loginPw.focus();
+				form.loginPwChk.focus();
 				return;
 			}
 			
@@ -72,11 +72,46 @@
 			form.submit();
 		} 
 		
-		const loginDupChk = function(el) {
+		const loginIdDupChk = function(el) {
+			el.value = el.value.trim();
+			
+			let loginIdDupChkMsg =$('#loginIdDupChkMsg')
+			
+			loginIdDupChkMsg.empty();  //  메시지 표시 칸의 내용을 비우는 jQuery 코드
+			
+			if(el.value.length == 0) {
+				loginIdDupChkMsg.removeClass('text-green-500');
+				loginIdDupChkMsg.addClass('text-red-500');
+				loginIdDupChkMsg.html(`<span>아이디는 필수 입력 정보입니다.</span>`);
+				return;
+			}
+			
+			$.ajax({
+				url: "loginIdDupChk",
+				method: "get",
+				data: {
+					"loginId" : el.value
+				},
+				dataType: "json",
+				success: function(data) {
+					if(data.success) {
+						loginIdDupChkMsg.removeClass('text-red-500');
+						loginIdDupChkMsg.addClass('text-green-500');
+						loginIdDupChkMsg.html(`<span>\${data.msg }</span>`);
+						validLoginId = el.value;
+					} else {
+						loginIdDupChkMsg.removeClass('text-green-500');
+						loginIdDupChkMsg.addClass('text-red-500');
+						loginIdDupChkMsg.html(`<span>\${data.msg }</span>`);
+						validLoginId = '';
+					}
+				},
+				error: function(xhr, status, error) {
+					console.error("ERROR : " + status + " - " + error);
+				}
+			})
 			
 		}		
-		
-		
 	 </script>
 	 
 	 <section class="mt-8 text-xl">
@@ -106,7 +141,7 @@
 						</tr>
 						<tr>
 							<th>닉네임</th>
-							<td><input class="input input-bordered input-info w-9/12" name="nickName" type="text" placeholder="닉네임을 입력해주세요."/> /></td>
+							<td><input class="input input-bordered input-info w-9/12" name="nickName" type="text" placeholder="닉네임을 입력해주세요."/></td>
 						</tr>
 						<tr>
 							<th>번호</th>
@@ -117,7 +152,7 @@
 							<td><input class="input input-bordered input-info w-9/12" name="email" type="text" placeholder="이메일을 입력해주세요."/></td>
 						</tr>
 						<tr>
-							<td class="text-centor" colspan="2"><button class="btn btn-wide btn-outline btn-sm">회원가입</button></td>
+							<td class="text-center" colspan="2"><button class="btn btn-wide btn-outline btn-sm">회원가입</button></td>
 						</tr>
 					</table>
 				</div>

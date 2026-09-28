@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" %>
 
-<scripte>
+<script>
 	let msg = '${msg}'.trim();
 	
 	if (msg) {
@@ -9,4 +9,4 @@
 	}
 	
 	history.back();
-</scripte>
+</script>

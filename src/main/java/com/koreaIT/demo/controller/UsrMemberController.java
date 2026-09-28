@@ -79,13 +79,13 @@ public class UsrMemberController {
 		Member member = memberService.getMemberByLoginId(loginId);
 		
 		if(member != null) {
-			return Util.jsHistoryBack(Util.f("%d은(는) 이미 사용중인 아이디입니다.", loginId));
+			return Util.jsHistoryBack(Util.f("%s은(는) 이미 사용중인 아이디입니다.", loginId));
 		}
 		
-		memberService.joinMember(loginId, loginPw, nickname, name, cellphoneNum, email);
+		memberService.joinMember(loginId, loginPw, name, nickname, cellphoneNum, email);
 		
 		
-		return Util.jsReplace(Util.f("%d님의 가입이 완료되었습니다.", name), "/");
+		return Util.jsReplace(Util.f("%s님의 가입이 완료되었습니다.", name), "/");
 	}
 	
 	@RequestMapping("usr/member/doLogin")

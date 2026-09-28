@@ -10,12 +10,12 @@
 	<script>
 		$(function() {
 			getRecommendPoint();
-			//비동기 처리
+			
 			$('#recommendBtn').click(function() {
 				let recommendBtn = $('#recommendBtn').hasClass('btn-active');		
 						
 				$.ajax({
-					url : "../recommendPoint/getRecommendPoint",
+					url : "../recommendPoint/doRecommendPoint",
 					method : "get",
 					data : {
 						"relTypeCode" : "article",
@@ -32,7 +32,7 @@
 				
 				location.reload();
 			})
-		)}
+		})
 		
 		const getRecommendPoint = function(){
 			$.ajax({
@@ -86,7 +86,7 @@
 								<span>${article.point }개</span>
 							</c:if>
 							
-							<c:if test="rq.loginedMemberId != 0">
+							<c:if test="${rq.loginedMemberId != 0}">
 								<button id="recommendBtn" class="btn btn-outline btn-xs mr-8">좋아요</button>
 								<span>${article.point }개</span>
 							</c:if>
@@ -113,19 +113,19 @@
 				
 				<c:if test="${rq.loginedMemberId == article.memberId}">
 					<a class="btn btn-outline btn-sm" href="modify?id=${article.id }">수정</a>
-					<a class="btn btn-outline btn-sm" href="doDelete?id=${article.id }" onclick="if(confirm('삭제 하시겠습니까?') == false) == return false;" >삭제</a>
+					<a class="btn btn-outline btn-sm" href="doDelete?id=${article.id }" onclick="if(confirm('삭제 하시겠습니까?') == false) return false;" >삭제</a>
 				</c:if>
 			</div>
 		</div>
 	</section>
 	
 	<script>
-		const replyForm.onSubmit = function(form) {
+		const replyForm_onSubmit = function(form) {
 			form.body.value = form.body.value.trim();
 			
 			if (form.body.value.length < 2) {
 				alert('2글자 이상 입력해주세요.');
-				form.body.focue();
+				form.body.focus();
 				return;
 			}
 			
@@ -135,25 +135,26 @@
 		let originalForm = null;
 		let originalId = null;
 		
-		const replyModify.getForm = function(replyId) {
+		const replyModify_getForm = function(replyId) {
 			if(originalForm != null) {
 				replyModify_cancle(originalId);
 			}
 			
 			$.ajax({
-				url: ,
-				method: ,
-				data: {
-					
+				url : "../reply/getReplyContent",
+				method : "get",
+				data : {
+					"id" : replyId
 				},
-				dataType: ,
-				success: {
-					let replyContent = $();
+				dataType : "json",
+				success : function(data){ 
+					
+					let replyContent = $('#' + replyId);
 					
 					originalId = replyId;
 					originalForm = replyContent.html();
 					
-					let addHtml =` 
+					let addHtml = ` 
 						<form action="../reply/doModify" method="post" onsubmit="replyForm_onSubmit(this); return false;">
 							<input type="hidden" name="id" value="\${data.data.id }"/>
 							<div class="mt-4 border border-gray-500 rounded-lg p-4">
@@ -175,13 +176,13 @@
 			})
 		}
 		
-		cosnt originalForm_cancle = function(form) {
+		const replyModify_cancle = function(replyId) {
 			let replyContent = $('#' + replyId);				
 			
 			replyContent.html(originalForm); 
-			
+
+			originalId = null;			
 			originalForm = null;
-			originalId = null;
 		}
 	</script>
 	
@@ -190,7 +191,7 @@
 			<div class="text-lg">댓글</div>
 			
 			<c:forEach var="reply" items="${replies }">
-				<div id="${reply.id }" class="py-3 pl-16 border-bottem-line">
+				<div id="${reply.id }" class="py-3 pl-16 border-bottom-line">
 					<div class="flex justify-between items-end">
 						<div class="text-yellow-800">${reply.writerName }</div>
 						
@@ -201,19 +202,19 @@
 							    </button>
 								<ul tabindex="0" class="z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-24">
 									<li><a onclick="replyModify_getForm(${reply.id })">수정</a></li>
-									<li><a href="../reply/doDetail?id=${reply.id }" onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;">삭제</a></li>
+									<li><a href="../reply/doDelete?id=${reply.id }" onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;">삭제</a></li>
 								</ul>
 							</div>
 							
 						</c:if>
 					</div>
-					<div class="my-1 text-lg ml-2">${reply.getForprintBody() }</div>
-					<div class="text-xs text-gray-400">${reply.updateDate() }</div>
+					<div class="my-1 text-lg ml-2">${reply.getForPrintBody() }</div>
+					<div class="text-xs text-gray-400">${reply.updateDate }</div>
 				</div>
 			</c:forEach>
 			
 			<c:if test="${rq.loginedMemberId != 0 }">
-				<form action="../reply/doWrite" method="post" onsubmit="replyForm.onSubmit(this); return false;">
+				<form action="../reply/doWrite" method="post" onsubmit="replyForm_onSubmit(this); return false;">
 					<input type="hidden" name="relTypeCode" value="article" />
 					<input type="hidden" name="relId" value="${article.id }"/>
 					<div class="mt-4 border border-gray-500 rounded-lg p-4" >

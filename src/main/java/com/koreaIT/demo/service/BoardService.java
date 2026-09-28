@@ -9,6 +9,10 @@ import com.koreaIT.demo.vo.Board;
 public class BoardService {
 	private BoardDao boardDao;
 	
+	public BoardService(BoardDao boardDao) {
+		this.boardDao = boardDao;
+	}
+	
 	public Board getBoardById(int boardId) {
 		return boardDao.getBoardById(boardId);
 	}

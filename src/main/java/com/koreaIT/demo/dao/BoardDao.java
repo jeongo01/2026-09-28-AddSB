@@ -11,7 +11,7 @@ public interface BoardDao {
 	@Select("""
 			SELECT *
 				FROM board
-				WHERE id = {boardId}
+				WHERE id = #{boardId}
 			""")
 	Board getBoardById(int boardId);
 }

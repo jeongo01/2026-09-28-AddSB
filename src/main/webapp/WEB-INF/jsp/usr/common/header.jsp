@@ -22,11 +22,10 @@
 </head>
 <body>
 	<div class="h-20 container mx-auto text-3xl flex">
-		<div><a class="h-full px-3 items-center" href="/">로고</a></div>
+		<div><a class="h-full px-3 flex items-center" href="/">로고</a></div>
 		<div class="flex-grow"></div>
 		<ul class="flex">
 			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/">HOME</a></li>
-			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/article/list">LIST</a></li>
 			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/home/checkboxTest">CHECKBOX_TEST</a></li>
 			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/article/list?boardId=1">NOTICE</a></li>
 			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/article/list?boardId=2">FREE</a></li>
@@ -35,7 +34,7 @@
 				<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/member/login">LOGIN</a></li>
 			</c:if>
 			<c:if test="${rq.loginedMemberId != 0}">
-				<li class="hover:underline"><a class="h-full px-3 flex itmes-center" href="/usr/member/logout">Logout</a></li>	
+				<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/member/doLogout">Logout</a></li>	
 			</c:if>
 		</ul>	
 	</div>

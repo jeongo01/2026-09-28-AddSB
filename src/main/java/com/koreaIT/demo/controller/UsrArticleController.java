@@ -43,7 +43,7 @@ public class UsrArticleController {
 
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
-	public String doWrite(String title, String body, int board) {
+	public String doWrite(String title, String body, int boardId) {
 		
 		if(Util.empty(title)) {
 			return Util.jsHistoryBack("제목을 입력해 주세요.");
@@ -53,7 +53,7 @@ public class UsrArticleController {
 			return Util.jsHistoryBack("내용을 입력해 주세요.");
 		}
 		
-		articleService.writeArticle(rq.getLoginedMemberId(), board, title, body);
+		articleService.writeArticle(rq.getLoginedMemberId(), boardId, title, body);
 		
 		int id = articleService.getLastInsertId();
 		
@@ -96,7 +96,7 @@ public class UsrArticleController {
 		model.addAttribute("board", board);
 		model.addAttribute("articlesCnt", articlesCnt);
 		
-		model.addAttribute("page", page);  // 여기서 이미 Model에 담아뒀다.
+		model.addAttribute("page", page);
 		model.addAttribute("pagesCnt", pagesCnt);
 		model.addAttribute("from", from);
 		model.addAttribute("end", end);
@@ -111,7 +111,7 @@ public class UsrArticleController {
 	public String showDetail(HttpServletRequest req, HttpServletResponse resp, Model model, int id) {
 		
 		if(articleService.getArticleById(id) == null) {
-			return rq.jsReturnOnView(Util.f("%번 게시물은 존재하지 않습니다.", id));
+			return rq.jsReturnOnView(Util.f("%d번 게시물은 존재하지 않습니다.", id));
 		}
 		
 		Cookie oldCookie = null;
@@ -159,10 +159,10 @@ public class UsrArticleController {
 		Article article = articleService.forPrintArticle(id);
 		
 		if(article == null) {
-			return rq.jsReturnOnView(Util.f("%s번 게시물은 존재하지 않습니다.", id));
+			return rq.jsReturnOnView(Util.f("%d번 게시물은 존재하지 않습니다.", id));
 		}
 		
-		if(rq.getLoginedMemberId() == article.getMemberId()) {
+		if(rq.getLoginedMemberId() != article.getMemberId()) {
 			return rq.jsReturnOnView("해당 게시물에 대한 권한이 없습니다.");
 		}
 		
@@ -190,7 +190,7 @@ public class UsrArticleController {
 		return Util.jsReplace(Util.f("%d번 게시물을 수정했습니다.", id), Util.f("detail?id=%d", id));
 	}
 	
-	@RequestMapping("/usr/article/delete")
+	@RequestMapping("/usr/article/doDelete")
 	@ResponseBody
 	public String doDelete(int id) {
 		
