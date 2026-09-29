@@ -218,6 +218,7 @@
 
 	    const editor = new toastui.Editor({
 	      el: node,
+		  initialEditType: 'wysiwyg',
 	      previewStyle: 'tab',
 	      initialValue: initialValue,
 	      height:'600px',

@@ -15,6 +15,7 @@ public class Article {
 	private String title;
 	private String body;
 	private int hitCnt;
+	private int point;
 	
 	private String writerName;
 	

@@ -104,7 +104,7 @@ public interface ArticleDao {
 				ON R.relTypeCode = 'article'
 				AND A.id = R.relId
 				WHERE A.id = #{id}
-				GROUB BY A.id
+				GROUP BY A.id
 			""")
 	public Article forPrintArticle(int id);
 
