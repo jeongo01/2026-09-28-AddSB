@@ -14,7 +14,7 @@
 			form.loginPw.value = form.loginPw.value.trim();
 			form.loginPwChk.value = form.loginPwChk.value.trim();
 			form.name.value = form.name.value.trim();
-			form.nickName.value = form.nickName.value.trim();
+			form.nickname.value = form.nickname.value.trim();
 			form.cellphoneNum.value = form.cellphoneNum.value.trim();
 			form.email.value = form.email.value.trim();
 			
@@ -57,9 +57,9 @@
 				return;
 			}
 			
-			if(form.nickName.value.length == 0) {
+			if(form.nickname.value.length == 0) {
 				alert('닉네임을 입력해주세요.');
-				form.nickName.focus();
+				form.nickname.focus();
 				return;
 			}
 			
@@ -147,7 +147,7 @@
 						</tr>
 						<tr>
 							<th>닉네임</th>
-							<td><input class="input input-bordered input-info w-9/12" name="nickName" type="text" placeholder="닉네임을 입력해주세요."/></td>
+							<td><input class="input input-bordered input-info w-9/12" name="nickname" type="text" placeholder="닉네임을 입력해주세요."/></td>
 						</tr>
 						<tr>
 							<th>전화번호</th>

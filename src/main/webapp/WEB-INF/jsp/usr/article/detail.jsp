@@ -3,9 +3,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 	<c:set var="pageTitle" value="DETAIL"/>
-	
+	<c:set var="hidePageTitle" value="true"/>
+		
 <%@ include file="../common/header.jsp" %>
 <%@ include file="../common/toastUiEditorLib.jsp" %>
+
+	<style>
+		.toast-ui-viewer .toastui-editor-contests,
+		.toast-ui-viewer .toastui-editor-contests, * {
+			color: inherit;
+		}
+	</style>
 
 	<script>
 		$(function() {
@@ -40,7 +48,7 @@
 				method : "get",
 				data : {
 					"relTypeCode" : "article",
-					"relId" : ${article.id }
+					"relId" : ${article.id } 
 				},
 				dataType : "json",
 				success : function(data){
@@ -57,64 +65,55 @@
 
 	<section class="mt-8 text-xl">
 		<div class="container mx-auto px-3">
-			<div>
-				<table class="table table-lg">
-					<tr>
-						<th>번호</th>
-						<td>${article.id }</td>
-					</tr>
-					<tr>
-						<th>작성일</th>
-						<td>${article.regDate }</td>
-					</tr>
-					<tr>
-						<th>수정일</th>
-						<td>${article.updateDate }</td>
-					</tr>
-					<tr>
-						<th>조회수</th>
-						<td>${article.hitCnt }</td>
-					</tr>
-					<tr>
-						<th>작성자</th>
-						<td>${article.writerName }</td>
-					</tr>
-					<tr>
-						<th>추천</th>
-						<td>
-							<c:if test="${rq.loginedMemberId == 0}">
-								<span>${article.point }개</span>
-							</c:if>
-							
-							<c:if test="${rq.loginedMemberId != 0}">
-								<button id="recommendBtn" class="btn btn-outline btn-xs mr-8">좋아요</button>
-								<span>${article.point }개</span>
-							</c:if>
-							
-						</td>
-					</tr>
-					<tr>
-						<th>제목</th>
-						<td>${article.title }</td>
-					</tr>
-					<tr>
-						<th>내용</th>
-						<td>
-							<div class="toast-ui-viewer">
-								<script type="text/x-template">${article.body }</script>
-							</div>
-						</td>
-					</tr>
-				</table>
-			</div>
 			
 			<div class="mt-2">
 				<button class="btn btn-outline btn-sm" onclick="history.back();">뒤로가기</button>
+			</div>
+			
+			<div class="mt-3 flex justify-between items-end">
+				<h1 class="text-2xl">
+					<span class="mr-2 text-gray-400">${article.id }</span>${pageTitle } Page					
+				</h1>				
+				<div class="grid grid-cols-[auto_auto] gap-x-3 text-sm text-gray-400}">
+					<span>작성일</span><span>${article.regDate.substring(0, 16) }</span>
+					<span>수정일</span><span>${article.updateDate.substring(0, 16) }</span>
+				</div>
+			</div>
+			
+			<div class="mt-4 p-4 border border-gray-600 rounded-lg flex justify-between items-center gap-4">
+				<div class="text-xl font-bold break-all">${article.title }</div>
+				<div class="shrink-0 text-gray-400">${article.writerName }</div>
+			</div>
+						
 				
+			<div class="mt-3 p-4 border border-gray-600 rounded-lg min-h-[200]">
+				<div class="toast-ui-viewer">
+					<script type="text/x-template">${article.body }</script>
+				</div>
+			</div>
+				
+			<div class="mt-3 flex justify-between items-center">
+				<div class="flex items-center gap-6 text-sm">
+					<span>조회수 ${article.hitCnt }</span>
+					<span class="flex items-center gap-2">
+						<c:if test="${rq.loginedMemberId == 0}">
+							<span>좋아요</span>
+						</c:if>
+						
+						<c:if test="${rq.loginedMemberId != 0}">
+							<button id="recommendBtn" class="btn btn-outline btn-xs mr-8">좋아요</button>
+						</c:if>
+						<span>${article.point }개</span>
+					</span>
+				</div>
+				
+			
 				<c:if test="${rq.loginedMemberId == article.memberId}">
-					<a class="btn btn-outline btn-sm" href="modify?id=${article.id }">수정</a>
-					<a class="btn btn-outline btn-sm" href="doDelete?id=${article.id }" onclick="if(confirm('삭제 하시겠습니까?') == false) return false;" >삭제</a>
-				</c:if>
+					<div class="flex gap-2">
+						<a class="btn btn-outline btn-sm" href="modify?id=${article.id }">수정</a>
+						<a class="btn btn-outline btn-sm" href="doDelete?id=${article.id }" onclick="if(confirm('삭제 하시겠습니까?') == false) return false;" >삭제</a>
+					</div>
+				</c:if>				
 			</div>
 		</div>
 	</section>
@@ -188,30 +187,36 @@
 	
 	<section class="my-8 text-base">
 		<div class="container mx-auto px-3">
-			<div class="text-lg">댓글</div>
+			<div class="mb-2 text-lg">댓글</div>
 			
-			<c:forEach var="reply" items="${replies }">
-				<div id="${reply.id }" class="py-3 pl-16 border-bottom-line">
-					<div class="flex justify-between items-end">
-						<div class="text-yellow-800">${reply.writerName }</div>
+			
+			
+			<div>
+				<c:forEach var="reply" items="${replies }">
+					<div id="${reply.id }" class="py-3 border-b border-gray-700 last:border-b-0">
 						
-						<c:if test="${rq.loginedMemberId == reply.memberId }">
-							<div class="dropdown dropdown-end">
-								<button class="btn btn-circle btn-ghost btn-sm">
-							    	<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg>
-							    </button>
-								<ul tabindex="0" class="z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-24">
-									<li><a onclick="replyModify_getForm(${reply.id })">수정</a></li>
-									<li><a href="../reply/doDelete?id=${reply.id }" onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;">삭제</a></li>
-								</ul>
-							</div>
-							
-						</c:if>
+						<div class="flex items-start gap-4">
+							<div class="w-29 shrink-0 truncate text-yellow-7000">${reply.writerName }</div>
+							<div class="flex-grow break-all">${reply.getForPrintBody() }</div>
+							<div class="shrink-0 pt-1 text-xs text-gray-400">${reply.updateDate.substring(0, 16) }</div>
+							<div class="w-8 shrink-0">
+								<c:if test="${rq.loginedMemberId == reply.memberId }">
+									<div class="dropdown dropdown-end">
+										<button class="btn btn-circle btn-ghost btn-sm">
+									    	<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg>
+									    </button>
+										<ul tabindex="0" class="z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-24">
+											<li><a onclick="replyModify_getForm(${reply.id })">수정</a></li>
+											<li><a href="../reply/doDelete?id=${reply.id }" onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;">삭제</a></li>
+										</ul>
+									</div>
+								</c:if>
+							</div>	
+						</div>
 					</div>
-					<div class="my-1 text-lg ml-2">${reply.getForPrintBody() }</div>
-					<div class="text-xs text-gray-400">${reply.updateDate }</div>
-				</div>
-			</c:forEach>
+				</c:forEach>
+			</div>
+			
 			
 			<c:if test="${rq.loginedMemberId != 0 }">
 				<form action="../reply/doWrite" method="post" onsubmit="replyForm_onSubmit(this); return false;">

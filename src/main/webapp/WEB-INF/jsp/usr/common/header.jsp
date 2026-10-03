@@ -39,8 +39,10 @@
 		</ul>	
 	</div>
 	
-	<section class="my-3 text-2xl">
-		<div class="container mx-auto px-3">
-			<h1>${pageTitle } PAGE</h1>
-		</div>
-	</section>
+	<c:if test="${empty hidePageTitle }">
+		<section class="my-3 text-2xl">
+			<div class="container mx-auto px-3">
+				<h1>${pageTitle } PAGE</h1>
+			</div>
+		</section>
+	</c:if>
