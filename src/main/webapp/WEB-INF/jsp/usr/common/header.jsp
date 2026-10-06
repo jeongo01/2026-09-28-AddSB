@@ -22,19 +22,34 @@
 </head>
 <body>
 	<div class="h-20 container mx-auto text-3xl flex">
-		<div><a class="h-full px-3 flex items-center" href="/">로고</a></div>
+		<div><a class="h-full px-3 flex items-center" href="/">E</a></div>
 		<div class="flex-grow"></div>
 		<ul class="flex">
 			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/">HOME</a></li>
-			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/home/checkboxTest">CHECKBOX_TEST</a></li>
-			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/article/list?boardId=1">NOTICE</a></li>
-			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/article/list?boardId=2">FREE</a></li>
+			
+			<li class="hover:underline dropdown dropdown-hover">
+				<a href class="h-full px-3 flex items-center" tabindex="0">국내</a>
+				<ul tabindex="0" class="dropdown-content menu bg-base-200 rounded-box z-[1] w-48 p-2 shdow text-base">
+					<li><a href="/usr/article/list?boardId=1">청주 A사 1공장</a></li>
+					<li><a href="/usr/article/list?boardId=2">청주 A사 2공장</a></li>
+				</ul>
+			</li>
+			
+			<li class="hover:underline dropdown dropdown-hover">
+				<a href class="h-full px-3 flex items-center" tabindex="0">해외</a>
+				<ul tabindex="0" class="dropdown-content menu bg-base-200 rounded-box z-[1] w-48 p-2 shdow text-base">
+					<li><a href="/usr/article/list?boardId=3">중국 B사 1공장</a></li>
+					<li><a href="/usr/article/list?boardId=4">일본 B사 2공장</a></li>
+				</ul>
+			</li>
+			
+			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/article/list?boardId=5">기타</a></li>
 			<c:if test="${rq.loginedMemberId == 0}">
-				<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/member/join">JOIN</a></li>
-				<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/member/login">LOGIN</a></li>
+				<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/member/join">회원가입</a></li>
+				<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/member/login">로그인</a></li>
 			</c:if>
 			<c:if test="${rq.loginedMemberId != 0}">
-				<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/member/doLogout">Logout</a></li>	
+				<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/member/doLogout">로그아웃</a></li>	
 			</c:if>
 		</ul>	
 	</div>

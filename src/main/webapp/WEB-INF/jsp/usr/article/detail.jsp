@@ -32,13 +32,12 @@
 					},
 					dataType : "text",
 					success : function(data){
+						location.reload();
 					},
 					error : function(xhr, status, error){
 						console.error("ERROR : " + status + " - " + error);
 					}
 				})
-				
-				location.reload();
 			})
 		})
 		

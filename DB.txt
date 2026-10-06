@@ -12,6 +12,8 @@ CREATE TABLE article(
 	`body` TEXT NOT NULL
 );
 
+DESC article;
+
 ALTER TABLE article ADD COLUMN hitCnt INT UNSIGNED NOT NULL DEFAULT 0;
 
 CREATE TABLE `member`(
@@ -33,9 +35,19 @@ CREATE TABLE board(
 	id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	regDate DATETIME NOT NULL,
 	updateDate DATETIME NOT NULL,
-	`code` VARCHAR(20) NOT NULL COMMENT 'notice(공지사항), free(자유), ...',
+	`code` VARCHAR(20) NOT NULL COMMENT '사이트 식별용 영문 코드(siteA, siteB, suggestion)',
 	`name` VARCHAR(20) NOT NULL COMMENT '게시판 이름'
 );
+
+
+ALTER TABLE board ADD COLUMN region VARCHAR(10) NOT NULL DEFAULT '국내' COMMENT '국내/해외/기타' AFTER `name`;
+INSERT INTO board SET regDate = NOW(), updateDate = NOW(), `code` = 'siteA-1', `name` = '청주 A사 1공장', region = '국내';
+INSERT INTO board SET regDate = NOW(), updateDate = NOW(), `code` = 'siteA-2', `name` = '청주 A사 2공장', region = '국내';
+INSERT INTO board SET regDate = NOW(), updateDate = NOW(), `code` = 'siteB-1', `name` = '중국 B사 1공장', region = '해외';
+INSERT INTO board SET regDate = NOW(), updateDate = NOW(), `code` = 'siteB-2', `name` = '중국 B사 2공장', region = '해외';
+INSERT INTO board SET regDate = NOW(), updateDate = NOW(), `code` = 'suggestion', `name` = '건의 사항', region = '기타';
+
+SELECT * FROM board;
 
 CREATE TABLE recommendPoint(
 	id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -54,28 +66,6 @@ CREATE TABLE reply(
 	relId INT UNSIGNED NOT NULL COMMENT '관련 데이터 번호',
 	`body` TEXT NOT NULL
 );
-
-INSERT INTO article
-SET regDate = NOW(),
-updateDate = NOW(),
-memberId = 1,
-boardId = 1,
-title = '공지1',
-`body` = '공지1';
-INSERT INTO article
-SET regDate = NOW(),
-updateDate = NOW(),
-memberId = 2,
-boardId = 2,
-title = '제목2',
-`body` = '내용2';
-INSERT INTO article
-SET regDate = NOW(),
-updateDate = NOW(),
-memberId = 2,
-boardId = 2,
-title = '제목3',
-`body` = '내용3';
 
 INSERT INTO `member`
 SET regDate = NOW(),
@@ -106,17 +96,6 @@ loginPw = 'test2',
 nickname = '테스트2',
 cellphoneNum = '010-2222-2222',
 email = 'test2@test.com';
-
-INSERT INTO board
-SET regDate = NOW(),
-updateDate = NOW(),
-`code` = 'notice',
-`name` = '공지사항';
-INSERT INTO board
-SET regDate = NOW(),
-updateDate = NOW(),
-`code` = 'free',
-`name` = '자유';
 
 # 2번 회원이 1번 게시물에 좋아요
 INSERT INTO recommendPoint
@@ -181,12 +160,6 @@ memberId = 3,
 relTypeCode = 'article',
 relId = 2,
 `body` = '댓글4';
-
-SELECT * FROM article;
-SELECT * FROM `member`;
-SELECT * FROM board;
-SELECT * FROM recommendPoint;
-SELECT * FROM reply;
 
 /*
 insert into article

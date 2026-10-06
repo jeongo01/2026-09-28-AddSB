@@ -24,17 +24,4 @@ public class UsrHomeController {
 	public String popUp() {
 		return "/usr/home/popUp";
 	}
-	
-	@RequestMapping("/usr/home/checkboxTest")
-	public String checkboxTest() {
-		return "/usr/home/checkboxTest";
-	}
-	
-	@RequestMapping("/usr/home/checkboxSubmit")
-	public String checkboxSubmit(Model model, @RequestParam(name = "ids", required = false) List<String> ids) {
-		
-		model.addAttribute("ids", ids);
-		
-		return "/usr/home/checkboxSubmit";
-	}
 }

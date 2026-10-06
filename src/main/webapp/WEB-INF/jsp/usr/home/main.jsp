@@ -6,13 +6,6 @@
 <%@ include file="../common/header.jsp" %>
 	<section class="mt-8">
 		<div class="container mx-auto">
-			<div>
-				Lorem.
-			</div>
-			<div>
-				본문 쓰기.
-			</div>
-			
 			<div class="flex">
 				<div class="modal-exam"><span>모달예시</span></div>
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
