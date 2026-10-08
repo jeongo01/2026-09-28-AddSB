@@ -37,13 +37,22 @@ public class UsrArticleController {
 	}
 	
 	@RequestMapping("/usr/article/write")
-	public String write() {
+	public String write(Model model, @RequestParam(defaultValue="0") int boardId) {
+		
+		Board board = boardService.getBoardById(boardId);
+		
+		if(board == null) {
+			return rq.jsReturnOnView("게시판을 선택한 뒤 글을 작성해주세요.");
+		}
+		
+		model.addAttribute("board", board);
+		
 		return "usr/article/write";
 	}
 
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
-	public String doWrite(String title, String body, int boardId) {
+	public String doWrite(String title, String body, int boardId, String equipment, String workStage, String causeType, String status, Integer resolverId) {
 		
 		if(Util.empty(title)) {
 			return Util.jsHistoryBack("제목을 입력해 주세요.");
@@ -53,7 +62,7 @@ public class UsrArticleController {
 			return Util.jsHistoryBack("내용을 입력해 주세요.");
 		}
 		
-		articleService.writeArticle(rq.getLoginedMemberId(), boardId, title, body);
+		articleService.writeArticle(rq.getLoginedMemberId(), title, body, boardId, equipment, workStage, causeType, status, resolverId);
 		
 		int id = articleService.getLastInsertId();
 		
@@ -199,6 +208,7 @@ public class UsrArticleController {
 		}
 		
 		Article article = articleService.getArticleById(id);
+		
 		
 		if(article == null) {
 			return Util.jsHistoryBack(Util.f("%d번 게시물은 존재하지 않습니다.", id));

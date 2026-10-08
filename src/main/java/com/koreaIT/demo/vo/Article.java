@@ -16,7 +16,14 @@ public class Article {
 	private String body;
 	private int hitCnt;
 	private int point;
+	private int boardId;
 	
 	private String writerName;
+	
+	private String equipment;
+	private String workStage;
+	private String causeType;
+	private String status;
+	private Integer resolverId;
 	
 }

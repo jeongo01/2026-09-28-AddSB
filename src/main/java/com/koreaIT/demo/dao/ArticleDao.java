@@ -9,7 +9,6 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.koreaIT.demo.vo.Article;
-import com.koreaIT.demo.vo.RecommendPoint;
 
 @Mapper
 public interface ArticleDao {
@@ -22,8 +21,13 @@ public interface ArticleDao {
 					, boardId = #{boardId}
 					, title = #{title}
 					, `body` = #{body}
+					, equipment = #{equipment}
+					, workStage = #{workStage}
+					, causeType = #{causeType}
+					, `status` = #{status}
+					, resolverId = #{resolverId}
 			""")
-	public void writeArticle(int memberId, int boardId, String title, String body);
+	public void writeArticle(int memberId, String title, String body, int boardId, String equipment, String workStage, String causeType, String status, Integer resolverId);
 
 	@Select("""
 			SELECT *

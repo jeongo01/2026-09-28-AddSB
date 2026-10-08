@@ -11,7 +11,7 @@ html > body, html > body .toast-ui-editor .ProseMirror, html > body .toastui-edi
 }
 
 html > body .toast-ui-editor .ProseMirror, html > body .toastui-editor-contents {
-	font-size: 12.5rem;	
+	font-size: 1.25rem;	
 }
 
 
@@ -72,4 +72,29 @@ html > body .toast-ui-editor .ProseMirror, html > body .toastui-editor-contents 
 	right: 15px;
 	cursor: pointer;
 	color: black;
+}
+
+/* 어두운 배경 용 */
+.toast-ui-viewer .toastui-editor-contents {
+	font-size: 16px;
+	color: inherit;
+}
+
+.toast-ui-viewer .toastui-editor-contents * {
+	color: inherit;
+}
+
+/* */
+toast-ui-viewer .toastui-editor-contents h1 {
+	font-size: 1.5rem;
+	 border-bottom: none;
+}
+
+toast-ui-viewer .toastui-editor-contents h2 {
+	font-size: 1.3rem;
+	 border-bottom: none;
+}
+
+toast-ui-viewer .toastui-editor-contents h3 {
+	font-size: 1.15rem;
 }

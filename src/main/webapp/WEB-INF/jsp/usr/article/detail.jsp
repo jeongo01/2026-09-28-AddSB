@@ -71,7 +71,7 @@
 			
 			<div class="mt-3 flex justify-between items-end">
 				<h1 class="text-2xl">
-					<span class="mr-2 text-gray-400">${article.id }</span>${pageTitle } Page					
+					<span class="mr-2 text-gray-400">${article.id }</span>${pageTitle }					
 				</h1>				
 				<div class="grid grid-cols-[auto_auto] gap-x-3 text-sm text-gray-400}">
 					<span>작성일</span><span>${article.regDate.substring(0, 16) }</span>
@@ -79,13 +79,17 @@
 				</div>
 			</div>
 			
-			<div class="mt-4 p-4 border border-gray-600 rounded-lg flex justify-between items-center gap-4">
-				<div class="text-xl font-bold break-all">${article.title }</div>
-				<div class="shrink-0 text-gray-400">${article.writerName }</div>
+			<div class="mt-2 p-2 rounded-lg flex justify-between items-center gap-4">
+				<div class="text-xl font-bold break-all">
+					<span class="text-sm opacity-60 mr-2">${article.title }</span>
+				</div>
+				<div class="shrink-0 text-gray-400">
+					<span class="text-sm opacity-60 mr-2">${article.writerName }</span>					
+				</div>
 			</div>
 						
 				
-			<div class="mt-3 p-4 border border-gray-600 rounded-lg min-h-[200]">
+			<div class="mt-3 p-4 border border-gray-600 rounded-lg min-h-[100]">
 				<div class="toast-ui-viewer">
 					<script type="text/x-template">${article.body }</script>
 				</div>
@@ -187,8 +191,6 @@
 	<section class="my-8 text-base">
 		<div class="container mx-auto px-3">
 			<div class="mb-2 text-lg">댓글</div>
-			
-			
 			
 			<div>
 				<c:forEach var="reply" items="${replies }">

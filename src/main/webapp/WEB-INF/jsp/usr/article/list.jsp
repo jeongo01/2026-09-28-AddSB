@@ -8,9 +8,9 @@
 
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
+		
 		<div class="mb-2 text-base flex justify-between">
 			<div ><span>총: ${articlesCnt } 개</span></div>
-			
 			<div>
 				<form>
 					<input name="boardId" type="hidden" value="${board.id }"/>
@@ -25,8 +25,8 @@
 					<button class="ml-2 btn btn-outline btn-sm">검색</button>
 				</form>
 			</div>
-			
 		</div>
+		
 		<div>
 			<table class="table table-lg">
 				<thead class="text-lg">
@@ -56,7 +56,7 @@
 		
 		<c:if test="${rq.loginedMemberId != 0}">
 			<div class="mt-2 flex justify-end">
-				<a class="btn btn-outline btn-sm" href="write">글쓰기</a>
+				<a class="btn btn-outline btn-sm" href="write?boardId=${board.id }">글쓰기</a>
 			</div>
 		</c:if>
 		
@@ -81,6 +81,7 @@
 				
 			</div>
 		</div>
+		
 	</div>
 </section>
 

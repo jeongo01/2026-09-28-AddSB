@@ -19,6 +19,11 @@
 				<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
 				<span class="close-btn btn btn-wide btn-outline btn-text-color">CLOSE</span>
 			</div>
+			
+			<div>
+				<a class="mt-2" href="write?board=${board.name }">
+			</div>
+				
 		</div>
 	</section>
 	

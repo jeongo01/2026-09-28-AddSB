@@ -12,9 +12,13 @@ CREATE TABLE article(
 	`body` TEXT NOT NULL
 );
 
-DESC article;
-
 ALTER TABLE article ADD COLUMN hitCnt INT UNSIGNED NOT NULL DEFAULT 0;
+
+ALTER TABLE article ADD COLUMN equipment VARCHAR(20) NOT NULL DEFAULT '' COMMENT '장비 명' AFTER title;
+ALTER TABLE article ADD COLUMN workStage VARCHAR(20) NOT NULL DEFAULT '' COMMENT '작업 단계' AFTER equipment;
+ALTER TABLE article ADD COLUMN causeType VARCHAR(20) NOT NULL DEFAULT '원인 불명' COMMENT '원인 구분' AFTER workStage;
+ALTER TABLE article ADD COLUMN `status` VARCHAR(20)  NOT NULL DEFAULT '진행 중' COMMENT '진행 중 / 협의중 / 해결 / 보류' AFTER causeType;
+ALTER TABLE article ADD COLUMN resolverId INT UNSIGNED COMMENT '해결한 사람' AFTER `status`;
 
 CREATE TABLE `member`(
 	id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -39,15 +43,12 @@ CREATE TABLE board(
 	`name` VARCHAR(20) NOT NULL COMMENT '게시판 이름'
 );
 
-
 ALTER TABLE board ADD COLUMN region VARCHAR(10) NOT NULL DEFAULT '국내' COMMENT '국내/해외/기타' AFTER `name`;
 INSERT INTO board SET regDate = NOW(), updateDate = NOW(), `code` = 'siteA-1', `name` = '청주 A사 1공장', region = '국내';
 INSERT INTO board SET regDate = NOW(), updateDate = NOW(), `code` = 'siteA-2', `name` = '청주 A사 2공장', region = '국내';
 INSERT INTO board SET regDate = NOW(), updateDate = NOW(), `code` = 'siteB-1', `name` = '중국 B사 1공장', region = '해외';
 INSERT INTO board SET regDate = NOW(), updateDate = NOW(), `code` = 'siteB-2', `name` = '중국 B사 2공장', region = '해외';
 INSERT INTO board SET regDate = NOW(), updateDate = NOW(), `code` = 'suggestion', `name` = '건의 사항', region = '기타';
-
-SELECT * FROM board;
 
 CREATE TABLE recommendPoint(
 	id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
