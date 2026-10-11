@@ -89,7 +89,7 @@ public class UsrReplyController {
 		
 		replyService.deleteReply(id);
 		
-		return Util.jsReplace(Util.f("%d번 게시물에 대한 댓글을 삭제했습니다.", id), Util.f("../article/detail?id=%d", reply.getId()));
+		return Util.jsReplace(Util.f("%d번 게시물에 대한 댓글을 삭제했습니다.", id), Util.f("../article/detail?id=%d", reply.getRelId()));
 		
 	}
 }
