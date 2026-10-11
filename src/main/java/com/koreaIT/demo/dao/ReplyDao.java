@@ -40,6 +40,13 @@ public interface ReplyDao {
 				WHERE id = #{id}
 			""")
 	public void deleteReply(int id);
+	
+	@Delete("""
+			DELETE FROM reply
+				WHERE relTypeCode = #{relTypeCode}
+				AND relId = #{relId}
+			""")
+	public void deleteReplies(String relTypeCode, int relId);
 
 	@Select("""
 			SELECT * 
@@ -65,5 +72,7 @@ public interface ReplyDao {
 				WHERE id = #{id}
 			""")
 	public void modifyReply(int id, String body);
+
+	
 
 }

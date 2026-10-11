@@ -47,7 +47,7 @@
 				method : "get",
 				data : {
 					"relTypeCode" : "article",
-					"relId" : ${article.id } 
+					"relId" : ${article.id }
 				},
 				dataType : "json",
 				success : function(data){
@@ -197,14 +197,14 @@
 					<div id="${reply.id }" class="py-3 border-b border-gray-700 last:border-b-0">
 						
 						<div class="flex items-start gap-4">
-							<div class="w-29 shrink-0 truncate text-yellow-7000">${reply.writerName }</div>
+							<div class="w-28 shrink-0 truncate text-yellow-500">${reply.writerName }</div>
 							<div class="flex-grow break-all">${reply.getForPrintBody() }</div>
 							<div class="shrink-0 pt-1 text-xs text-gray-400">${reply.updateDate.substring(0, 16) }</div>
 							<div class="w-8 shrink-0">
 								<c:if test="${rq.loginedMemberId == reply.memberId }">
 									<div class="dropdown dropdown-end">
 										<button class="btn btn-circle btn-ghost btn-sm">
-									    	<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg>
+									    	<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path>											</svg>
 									    </button>
 										<ul tabindex="0" class="z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-24">
 											<li><a onclick="replyModify_getForm(${reply.id })">수정</a></li>

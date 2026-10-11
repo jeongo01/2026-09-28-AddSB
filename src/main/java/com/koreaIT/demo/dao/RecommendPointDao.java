@@ -27,8 +27,14 @@ public interface RecommendPointDao {
 				AND relId = #{id}
 			""")
 	public void deletePoint(int loginedMemberId, String relTypeCode, int id);
-
 	
+	@Delete("""
+			DELETE FROM recommendPoint
+				WHERE relTypeCode = #{relTypeCode}
+				AND relId = #{relId}
+			""")
+	public void deletePoints(String relTypeCode, int relId);
+
 	@Select("""
 			SELECT *
 				FROM recommendPoint

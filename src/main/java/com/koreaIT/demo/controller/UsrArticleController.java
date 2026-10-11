@@ -220,7 +220,7 @@ public class UsrArticleController {
 		
 		articleService.deleteArticle(id);
 		
-		return Util.jsReplace(Util.f("%d번 게시물을 삭제했습니다.", id), "list");
+		return Util.jsReplace(Util.f("%d번 게시물을 삭제했습니다.", id), Util.f("list?boardId=%d", article.getBoardId()));
 	}
 	
 }
