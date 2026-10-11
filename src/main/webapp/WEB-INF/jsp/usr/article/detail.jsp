@@ -8,13 +8,6 @@
 <%@ include file="../common/header.jsp" %>
 <%@ include file="../common/toastUiEditorLib.jsp" %>
 
-	<style>
-		.toast-ui-viewer .toastui-editor-contests,
-		.toast-ui-viewer .toastui-editor-contests, * {
-			color: inherit;
-		}
-	</style>
-
 	<script>
 		$(function() {
 			getRecommendPoint();
@@ -73,7 +66,7 @@
 				<h1 class="text-2xl">
 					<span class="mr-2 text-gray-400">${article.id }</span>${pageTitle }					
 				</h1>				
-				<div class="grid grid-cols-[auto_auto] gap-x-3 text-sm text-gray-400}">
+				<div class="grid grid-cols-[auto_auto] gap-x-3 text-sm text-gray-400">
 					<span>작성일</span><span>${article.regDate.substring(0, 16) }</span>
 					<span>수정일</span><span>${article.updateDate.substring(0, 16) }</span>
 				</div>
@@ -81,14 +74,13 @@
 			
 			<div class="mt-2 p-2 rounded-lg flex justify-between items-center gap-4">
 				<div class="text-xl font-bold break-all">
-					<span class="text-sm opacity-60 mr-2">${article.title }</span>
+					<span class="text-sm opacity-60 mr-2">제목</span>${article.title }
 				</div>
 				<div class="shrink-0 text-gray-400">
-					<span class="text-sm opacity-60 mr-2">${article.writerName }</span>					
+					<span class="text-sm opacity-60 mr-2">작성자</span>${article.writerName }	
 				</div>
 			</div>
 						
-				
 			<div class="mt-3 p-4 border border-gray-600 rounded-lg min-h-[100]">
 				<div class="toast-ui-viewer">
 					<script type="text/x-template">${article.body }</script>
@@ -186,6 +178,29 @@
 			originalId = null;			
 			originalForm = null;
 		}
+		
+		const replyDelete = function(replyId) {
+			if(confirm('정말 삭제하시겠습니까?') == false) {
+				return;
+			}
+			
+			$.ajax({
+				url : "../reply/doDeleteAjax",
+				method : "post",
+				data : { "id" : replyId },
+				dataType : "json",
+				success : function(data) {
+					if (data.success == false) {
+						alert(data.msg);
+						return;
+					}
+					$('#' + replyId).remove();
+				},
+				error : function(xhr, status, error) {
+					console.error("ERROR : " + status + " - " + error);
+				}
+			})
+		}
 	</script>
 	
 	<section class="my-8 text-base">
@@ -209,7 +224,7 @@
 									    </div>
 										<ul tabindex="0" class="z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-24">
 											<li><a onclick="replyModify_getForm(${reply.id })">수정</a></li>
-											<li><a href="../reply/doDelete?id=${reply.id }" onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;">삭제</a></li>
+											<li><a onclick="replyDelete(${reply.id })">삭제</a></li>
 										</ul>
 									</div>
 									
