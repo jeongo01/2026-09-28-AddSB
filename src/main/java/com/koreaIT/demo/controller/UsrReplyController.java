@@ -73,6 +73,29 @@ public class UsrReplyController {
 		
 	}
 	
+	@RequestMapping("/usr/reply/doModifyAjax")
+	@ResponseBody
+	public ResultData<Reply> doModifyAjax(int id, String body) {
+		
+		if(Util.empty(body)) {
+			return ResultData.from("F-1", "내용을 입력해주세요.");
+		}
+		
+		Reply reply = replyService.getReplyById(id);
+		
+		if(reply == null) {
+			return ResultData.from("F-2", "게시글에 댓글이 존재하지 않습니다.");
+		}
+		
+		if(rq.getLoginedMemberId() != reply.getMemberId()) {
+			return ResultData.from("F-3", "해당 댓글에 대한 권한이 없습니다.");
+		}
+		
+		replyService.modifyReply(id, body);
+		
+		return ResultData.from("S-1", "댓글을 수정 하셨습니다.", replyService.forPrintReply(id));
+	}
+	
 	@RequestMapping("/usr/reply/doDelete")
 	@ResponseBody
 	public String doDelete(int id) {	

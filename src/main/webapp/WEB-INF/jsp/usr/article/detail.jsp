@@ -149,8 +149,7 @@
 					originalForm = replyContent.html();
 					
 					let addHtml = ` 
-						<form action="../reply/doModify" method="post" onsubmit="replyForm_onSubmit(this); return false;">
-							<input type="hidden" name="id" value="\${data.data.id }"/>
+						<form onsubmit="replyModify_submit(this, \${replyId}); return false;">
 							<div class="mt-4 border border-gray-500 rounded-lg p-4">
 								<div class="mb-2">\${data.data.writerName}</div>
 								<textarea class="textarea textarea-bordered textarea-info w-full" name="body" placeholder="댓글을 작성해보세요.">\${data.data.body}</textarea>
@@ -201,6 +200,41 @@
 				}
 			})
 		}
+		
+		const replyModify_submit = function(form, replyId) {
+			form.body.value = form.body.value.trim();
+			
+			if(form.body.value.length < 2) {
+				alert('2글자 이상 입력해주세요.');
+				form.body.focus();
+				return;
+			}
+			
+			$.ajax ({
+				url: "../reply/doModifyAjax",
+				method: "post",
+				data: {
+					"id": replyId,
+					"body": form.body.value		
+				},
+				dataType: "json",
+				success: function(data) {
+					if(data.success == false) {
+						alert(data.msg);
+						return;
+					}
+					
+					replyModify_cancle(replyId) // 수정 폼을 원래 댓글 모양으로 되돌린다.
+					
+					let replyContent = $('#' + replyId);
+					replyContent.find('.reply-body').html(data.data.forPrintBody);                 // 내용 교체
+					replyContent.find('.reply-date').text(data.data.updateDate.substring(0, 16));  // 수정일 교체
+				},
+				error : function(xhr, status, error) {
+					console.error("ERROR: " + status + " - " + error);
+				}
+			}) 
+		}
 	</script>
 	
 	<section class="my-8 text-base">
@@ -213,8 +247,8 @@
 						
 						<div class="flex items-start gap-4">
 							<div class="w-28 shrink-0 truncate text-yellow-500">${reply.writerName }</div>
-							<div class="flex-grow break-all">${reply.getForPrintBody() }</div>
-							<div class="shrink-0 pt-1 text-xs text-gray-400">${reply.updateDate.substring(0, 16) }</div>
+							<div class="reply-body flex-grow break-all">${reply.getForPrintBody() }</div>
+							<div class="reply-data shrink-0 pt-1 text-xs text-gray-400">${reply.updateDate.substring(0, 16) }</div>
 							<div class="w-8 shrink-0">
 								<c:if test="${rq.loginedMemberId == reply.memberId }">
 									
