@@ -80,6 +80,28 @@
 					<span class="text-sm opacity-60 mr-2">작성자</span>${article.writerName }	
 				</div>
 			</div>
+			
+			<div class="mt-3 grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
+				<div class="p-3 border border-gray-600 rounded-lg flex justify-center items-center gap-3">
+					<div class="opacity-60">장비명:</div>
+					<div>${empty article.equipment ? '-' : article.equipment }</div>
+				</div>
+				
+				<div class="p-3 border border-gray-600 rounded-lg flex justify-center items-center gap-3">
+					<div class="opacity-60">작업 단계:</div>
+					<div>${empty article.workStage ? '-' : article.workStage }</div>
+				</div>
+				
+				<div class="p-3 border border-gray-600 rounded-lg flex justify-center items-center gap-3">
+					<div class="opacity-60">원인 구분:</div>
+					<div>${article.causeType }</div>
+				</div>
+				
+				<div class="p-3 border border-gray-600 rounded-lg flex justify-center items-center gap-3">
+					<div class="opacity-60">상태:</div>
+					<div>${article.status }</div>
+				</div>
+			</div>
 						
 			<div class="mt-3 p-4 border border-gray-600 rounded-lg min-h-[100]">
 				<div class="toast-ui-viewer">

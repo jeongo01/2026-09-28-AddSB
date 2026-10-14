@@ -44,6 +44,8 @@
 						<tr class="hover">
 							<td>${article.id }</td>
 							<td class="hover:underline"><a href="detail?id=${article.id }">${article.title }</a></td>
+							
+							
 							<td>${article.writerName }</td>
 							<td>${article.regDate.substring(2, 16) }</td>
 							<td>${article.hitCnt }</td>
