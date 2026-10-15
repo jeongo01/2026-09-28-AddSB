@@ -33,6 +33,8 @@
 					<tr>
 						<th>번호</th>
 						<th>제목</th>
+						<th>장비명</th>
+						<th>상태</th>
 						<th>작성자</th>
 						<th>작성일</th>
 						<th>조회수</th>
@@ -44,8 +46,15 @@
 						<tr class="hover">
 							<td>${article.id }</td>
 							<td class="hover:underline"><a href="detail?id=${article.id }">${article.title }</a></td>
-							
-							
+							<td>${empty article.equipment ? '-' : article.equipment }</td>
+							<td>
+								<span class="badge badge-sm">
+									${article.status == '해결' ? badge-success : '' }
+									${article.status == '진행 중' ? badge-warning : '' }
+									${article.status == '협의 중' ? badge-info : ''}
+									${article.status }
+								</span>
+							</td>
 							<td>${article.writerName }</td>
 							<td>${article.regDate.substring(2, 16) }</td>
 							<td>${article.hitCnt }</td>

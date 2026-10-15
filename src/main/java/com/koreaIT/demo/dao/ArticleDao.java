@@ -120,7 +120,7 @@ public interface ArticleDao {
 				<if test="searchKeyword != ''">
 					<choose>
 						<when test="searchKeywordType == 'title'">
-							AND title LIKE CONCAT('%', #{searchKeyword}, '%' );
+							AND title LIKE CONCAT('%', #{searchKeyword}, '%' )
 						</when>
 						<when test="searchKeywordType == 'body'">
 							AND `body` LIKE CONCAT('%', #{searchKeyword}, '%')
