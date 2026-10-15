@@ -30,8 +30,8 @@ public class ArticleService {
 		return articleDao.getArticleById(id);
 	}
 
-	public void modifyArticle(int id, String title, String body) {
-		articleDao.modifyArticle(id, title, body);
+	public void modifyArticle(int id, String title, String body, String equipment, String workStage, String causeType, String status) {
+		articleDao.modifyArticle(id, title, body, equipment, workStage, causeType, status);
 	}
 
 	@Transactional

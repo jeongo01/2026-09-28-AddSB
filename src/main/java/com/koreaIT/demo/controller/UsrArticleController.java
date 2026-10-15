@@ -182,7 +182,7 @@ public class UsrArticleController {
 	
 	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
-	public String doModify(int id, String title, String body) {
+	public String doModify(int id, String title, String body, String equipment, String workStage, String causeType, String status) {
 		
 		Article article = articleService.getArticleById(id);
 		
@@ -194,7 +194,7 @@ public class UsrArticleController {
 			return Util.jsHistoryBack("해당 게시물에 대한 권한이 없습니다.");
 		}
 		
-		articleService.modifyArticle(id, title, body);
+		articleService.modifyArticle(id, title, body, equipment, workStage, causeType, status);
 		
 		return Util.jsReplace(Util.f("%d번 게시물을 수정했습니다.", id), Util.f("detail?id=%d", id));
 	}

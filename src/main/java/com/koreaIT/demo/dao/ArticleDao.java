@@ -44,12 +44,24 @@ public interface ArticleDao {
 							, title = #{title}
 						</if>
 						<if test = "body != null and body != ''">
-						, `body` = #{body}
+							, `body` = #{body}
+						</if>
+						<if test="equipment != null">
+							, equipment = #{equipment}
+						</if>
+						<if test="workStage != null">
+							, workStage = #{workStage}
+						</if>
+						<if test="causeType != null">
+							, causeType = #{causeType}
+						</if>
+						<if test="status != null">
+							, status = #{status}
 						</if>
 					WHERE id = #{id}
 			</script>
 			""")
-	public void modifyArticle(int id, String title, String body);
+	public void modifyArticle(int id, String title, String body, String equipment, String workStage, String causeType, String status);
 
 	@Delete("""
 			DELETE FROM article
