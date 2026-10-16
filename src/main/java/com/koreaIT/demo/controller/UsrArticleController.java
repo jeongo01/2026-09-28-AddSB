@@ -70,9 +70,12 @@ public class UsrArticleController {
 	}
 	
 	@RequestMapping("/usr/article/list")
-	public String showList(Model model, int boardId, @RequestParam (defaultValue = "1") int page,
+	public String showList(Model model, int boardId,
+			@RequestParam(defaultValue = "1") int page,
 			@RequestParam(defaultValue = "title") String searchKeywordType,
-			@RequestParam(defaultValue = "") String searchKeyword) {
+			@RequestParam(defaultValue = "") String searchKeyword,
+			@RequestParam(defaultValue = "") String searchStatus,
+			@RequestParam(defaultValue = "") String searchCauseType) {
 		
 		if(page <= 0) {
 			return rq.jsReturnOnView("페이지 번호가 올바르지 않습니다.");
@@ -84,7 +87,7 @@ public class UsrArticleController {
 			return rq.jsReturnOnView("존재하지 않는 게시판입니다.");
 		}
 		
-		int articlesCnt = articleService.getArticlesCnt(boardId, searchKeywordType, searchKeyword);
+		int articlesCnt = articleService.getArticlesCnt(boardId, searchKeywordType, searchKeyword, searchStatus, searchCauseType);
 		
 		int itemsInAPage = 10;
 		
@@ -92,7 +95,7 @@ public class UsrArticleController {
 		
 		int pagesCnt = (int) Math.ceil((double) articlesCnt / itemsInAPage);
 		
-		List<Article> articles = articleService.getArticles(boardId, searchKeywordType, searchKeyword, limitStart, itemsInAPage);
+		List<Article> articles = articleService.getArticles(boardId, searchKeywordType, searchKeyword, searchStatus, searchCauseType, limitStart, itemsInAPage);
 		
 		int from = ((page - 1) / itemsInAPage ) * itemsInAPage + 1;
 		int end = (((page - 1) / itemsInAPage) + 1) * itemsInAPage;
@@ -112,6 +115,9 @@ public class UsrArticleController {
 		
 		model.addAttribute("searchKeywordType", searchKeywordType);
 		model.addAttribute("searchKeyword", searchKeyword);
+		
+		model.addAttribute("searchStatus", searchStatus);
+		model.addAttribute("searchcauseType", searchCauseType);
 		
 		return "usr/article/list";
 	}

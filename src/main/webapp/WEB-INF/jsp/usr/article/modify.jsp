@@ -28,7 +28,7 @@
 							<td>
 								<select class="select select-bordered select-info" name="workStage">
 									<option value="">선택 안 함</option>
-									<c:forTokens var="stage" items="조립품 확인, 조립, 공압, 명칭 표기, IO 체크, 부속품·센서 부착, 세팅, 검수, 이설, 장비 설치, 형교환" delims=",">
+									<c:forTokens var="stage" items="조립품 확인,조립,공압,명칭 표기,IO 체크,부속품·센서 부착,세팅,검수,이설,장비 설치,형교환" delims=",">
 										<option value="${stage }" ${article.workStage == stage ? 'selected' : ''}>${stage }</option>
 									</c:forTokens>
 								</select>
@@ -38,7 +38,7 @@
 							<th>원인 구분</th>
 							<td>
 								<select class="select select-bordered select-info" name="causeType">
-									<c:forTokens var="cause" items="원인 불명, 기구, 전장, 제어, 설계, 세팅, 전 공정, 제품" delims=",">
+									<c:forTokens var="cause" items="원인 불명,기구,전장,제어,설계,세팅,전 공정,품질" delims=",">
 										<option value="${cause }" ${article.causeType == cause ? 'selected' : ''}>${cause }</option>
 									</c:forTokens>
 								</select>
@@ -48,7 +48,7 @@
 							<th>상태</th>
 							<td>
 								<select class="select select-bordered select-info" name="status">
-									<c:forTokens var="st" items="해결, 진행 중, 협의 중, 보류" delims=",">
+									<c:forTokens var="st" items="해결,진행 중,협의 중,보류" delims=",">
 										<option value="${st }" ${article.status == st ? 'selected' : ''}>${st }</option>
 									</c:forTokens>
 								</select>

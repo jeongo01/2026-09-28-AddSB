@@ -97,12 +97,18 @@ public interface ArticleDao {
 			    		</otherwise>
 			    	</choose>
 			    </if>
+			    <if test="searchStatus != ''">
+			    	AND A.`status` = #{searchStatus}
+			    </if>
+			    <if test="searchCauseType != ''">
+			    	AND A.causeType = #{searchCauseType}
+			    </if>
 			    GROUP BY A.id
 			    ORDER BY id DESC
 			    LIMIT #{limitStart}, #{itemsInAPage}
 		    </script>
 			""")
-	public List<Article> getArticles(int boardId, String searchKeywordType, String searchKeyword, int limitStart, int itemsInAPage);
+	public List<Article> getArticles(int boardId, String searchKeywordType, String searchKeyword, String searchStatus, String searchCauseType, int limitStart, int itemsInAPage);
 
 	@Select("""
 			SELECT LAST_INSERT_ID()
@@ -146,10 +152,16 @@ public interface ArticleDao {
 						</otherwise>
 					</choose>
 				</if>
+				<if test="searchStatus != ''">
+					AND `status` = #{searchStatus}
+				</if>
+				<if test="searchCauseType != ''">
+					AND causeType = #{searchCauseType}
+				</if>
 				
 			</script>
 			""")
-	public int getArticlesCnt(int boardId, String searchKeywordType, String searchKeyword);
+	public int getArticlesCnt(int boardId, String searchKeywordType, String searchKeyword, String searchStatus, String searchCauseType);
 
 	
 	@Update("""

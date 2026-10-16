@@ -19,6 +19,18 @@
 						<option value="body">내용</option>
 						<option value="title, body">제목 + 내용</option>
 					</select>
+					<select class="ml-2 select select-info select-sm" name="searchStatus">
+						<option value="">상태 전체</option>
+						<c:forTokens var="statusOption" items="해결,진행 중,협의 중,보류" delims=",">
+							<option value="${statusOption}" ${searchStatus == statusOption ? 'selected' : ''}>${statusOption }</option>
+						</c:forTokens>
+					</select>
+					<select class="ml-2 select select-info select-sm" name="searchCauseType">
+						<option value="">원인 전체</option>
+						<c:forTokens var="causeOption" items="원인 불명,기구,전장,제어,설계,세팅,전 공정,품질" delims=",">
+							<option value="${causeOption}" ${searchCauseType == causeOption ? 'selected' : ''}>${causeOption }</option>
+						</c:forTokens>
+					</select>
 					
 					<input class="ml-2 input input-bordered input-info w-60 input-sm" name="searchKeyword" type="text" value="${searchKeyword}" placeholder="검색어를 입력해주세요." maxlength="20"/>
 					
@@ -48,10 +60,10 @@
 							<td class="hover:underline"><a href="detail?id=${article.id }">${article.title }</a></td>
 							<td>${empty article.equipment ? '-' : article.equipment }</td>
 							<td>
-								<span class="badge badge-sm">
-									${article.status == '해결' ? badge-success : '' }
-									${article.status == '진행 중' ? badge-warning : '' }
-									${article.status == '협의 중' ? badge-info : ''}
+								<span class="badge badge-sm
+									${article.status == '해결' ? 'badge-success' : '' }
+									${article.status == '진행 중' ? 'badge-warning' : '' }
+									${article.status == '협의 중' ? 'badge-info' : ''}">
 									${article.status }
 								</span>
 							</td>
@@ -73,8 +85,7 @@
 		
 		<div class="mt-2 flex justify-center">
 			<div class="join">
-				<c:set var="baseUri" value="?boardId=${board.id}&searchKeywordType=${searchKeywordType}&searchKeyword=${searchKeyword}" />
-				
+				<c:set var="baseUri" value="?boardId=${board.id}&searchKeywordType=${searchKeywordType}&searchKeyword=${searchKeyword}&searchStatus=${searchStatus}&searchCauseType=${searchCauseType}" />
 				<c:if test="${from != 1}">
 					<a class="join-item btn btn-square btn-sm" href="${baseUri}&page=1">&lt;&lt;</a>
 					<a class="join-item btn btn-square btn-sm" href="${baseUri}&page=${from - 1}">&lt;</a>
@@ -82,14 +93,12 @@
 				
 				<c:forEach begin="${from}" end="${end}" var="i">
 					<a class="join-item btn btn-square btn-sm ${page == i ? 'btn-active' : '' }" href="${baseUri}&page=${i}">${i}</a>
-					
 				</c:forEach>
 				
 				<c:if test="${end != pagesCnt}">
 					<a class="join-item btn btn-square btn-sm" href="${baseUri}&page=${end + 1}">&gt;</a>
 					<a class="join-item btn btn-square btn-sm" href="${baseUri}&page=${pagesCnt}">&gt;&gt;</a>
 				</c:if>
-				
 			</div>
 		</div>
 		

@@ -51,7 +51,7 @@
 							<option>전장</option>
 							<option>설계</option>
 							<option>세팅</option>
-							<option>제품</option>
+							<option>품질</option>
 							<option>전 공정</option>
 						</select>
 					</div>
