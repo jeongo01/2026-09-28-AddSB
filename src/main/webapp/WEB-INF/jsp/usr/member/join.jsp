@@ -117,7 +117,19 @@
 				}
 			})
 			
-		}		
+		}
+		
+		const togglePw = function(btn){
+			const input = btn.previousElementSibling ;
+			
+			if(input.type == 'password') {
+				input.type='text'
+				btn.innerText='숨기기'
+			} else {
+				input.type='password'
+				btn.innerText='보기'
+			}		
+		} 
 	 </script>
 	 
 	 <section class="mt-8 text-xl">
@@ -128,18 +140,28 @@
 						<tr height="110">
 							<th>아이디</th>
 							<td>
-								<input class="input input-bordered input-info w-9/12" name="loginId"  type="text" placeholder="아이디를 입려해주세요." onblur="loginIdDupChk(this);"/>
+								<input class="input input-bordered input-info w-9/12" name="loginId"  type="text" placeholder="아이디를 입력해주세요." onblur="loginIdDupChk(this);"/>
 								
 								<div id="loginIdDupChkMsg" class="mt-2 text-sm h-5"></div>
 							</td>
 						</tr>
 						<tr>
 							<th>비밀번호</th>
-							<td><input class="input input-bordered input-info w-9/12" name="loginPw" type="text" placeholder="비밀번호를 입력해주세요."/></td>
+							<td>
+								<div class="relative w-9/12">
+									<input class="input input-bordered input-info pr-16 w-full" name="loginPw" type="password" placeholder="비밀번호를 입력해주세요."/>
+									<button type="button" class="btn btn-ghost btn-sm absolute right-2 top-1/2 -translate-y-1/2" onclick="togglePw(this);">보기</button>
+								</div>
+							</td>
 						</tr>
 						<tr>
 							<th>비밀번호 확인</th>
-							<td><input class="input input-bordered input-info w-9/12" name="loginPwChk" type="text" placeholder="비밀번호 확인을 입력해주세요."/></td>
+							<td>
+								<div class="relative w-9/12">
+									<input class="input input-bordered input-info pr-16 w-full" name="loginPwChk" type="password" placeholder="비밀번호 확인을 입력해주세요."/>
+									<button type="button" class="btn btn-ghost btn-sm absolute right-2 top-1/2 -translate-y-1/2" onclick="togglePw(this);">보기</button>
+								</div>
+							</td>
 						</tr>
 						<tr>
 							<th>이름</th>
