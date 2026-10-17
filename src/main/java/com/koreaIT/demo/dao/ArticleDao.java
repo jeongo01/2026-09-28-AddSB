@@ -118,10 +118,13 @@ public interface ArticleDao {
 	@Select("""
 			SELECT A.*
 					, M.nickname AS writerName
+					, RM.nickname AS resolverName
 					, IFNULL(SUM(R.point), 0) AS `point`
 				FROM article AS A
 				INNER JOIN `member` AS M
 				ON A.memberId = M.id
+				LEFT JOIN `member` AS RM
+				ON A.resolverId = RM.id
 				LEFT JOIN recommendPoint AS R
 				ON R.relTypeCode = 'article'
 				AND A.id = R.relId
@@ -170,4 +173,22 @@ public interface ArticleDao {
 				WHERE id = #{id}
 			""")
 	public void increaseHitCnt(int id);
+
+	@Update("""
+			UPDATE article
+				SET updateDate = NOW()
+					, status = '해결'
+					, resolverId = #{resolverId}
+				WHERE id = #{id}
+			""")
+	public void resolveArticle(int id, int resolverId);
+	
+	@Update("""
+			UPDATE article
+				SET updateDate = NOW()
+					, status = '진행 중'
+					, resolverId = NULL
+				WHERE id = #{id}
+			""")
+	public void reopenArticle(int id);
 }

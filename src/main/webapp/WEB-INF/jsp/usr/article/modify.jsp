@@ -47,11 +47,16 @@
 						<tr>
 							<th>상태</th>
 							<td>
-								<select class="select select-bordered select-info" name="status">
-									<c:forTokens var="st" items="해결,진행 중,협의 중,보류" delims=",">
-										<option value="${st }" ${article.status == st ? 'selected' : ''}>${st }</option>
-									</c:forTokens>
-								</select>
+								<c:choose>
+									<c:when test="${article.status == '해결'}">해결</c:when>
+									<c:otherwise>
+										<select class="select select-bordered select-info" name="status">
+											<c:forTokens var="statusOption" items="진행 중,협의 중,보류" delims=",">
+												<option value="${statusOption }" ${article.status == statusOption ? 'selected' : ''}>${statusOption }</option>
+											</c:forTokens>
+										</select>
+									</c:otherwise>
+								</c:choose>
 							</td>
 						</tr>
 						<tr>

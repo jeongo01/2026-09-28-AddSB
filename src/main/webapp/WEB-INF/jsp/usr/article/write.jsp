@@ -58,7 +58,9 @@
 					<div>
 						<label class="block text-center text-sm">상태</label>
 						<select class="select select-bordered select-info w-full mt-1" name="status">
-							<option>해결</option>
+							<c:when test="${article.status == '해결'}">
+								해결 <span class="text-sm opacity-60">다시 열기</span>
+							</c:when>
 							<option>진행 중</option>
 							<option>협의 중</option>
 							<option>보류</option>	

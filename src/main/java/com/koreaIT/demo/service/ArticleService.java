@@ -61,4 +61,12 @@ public class ArticleService {
 		articleDao.increaseHitCnt(id);
 	}
 
+	public void resolveArticle(int id, int resolverId) {
+		articleDao.resolveArticle(id, resolverId);
+	}
+
+	public void reopenArticle(int id) {
+		articleDao.reopenArticle(id);
+	}
+
 }

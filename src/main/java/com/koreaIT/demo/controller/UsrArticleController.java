@@ -117,7 +117,7 @@ public class UsrArticleController {
 		model.addAttribute("searchKeyword", searchKeyword);
 		
 		model.addAttribute("searchStatus", searchStatus);
-		model.addAttribute("searchcauseType", searchCauseType);
+		model.addAttribute("searchCauseType", searchCauseType);
 		
 		return "usr/article/list";
 	}
@@ -229,4 +229,41 @@ public class UsrArticleController {
 		return Util.jsReplace(Util.f("%d번 게시물을 삭제했습니다.", id), Util.f("list?boardId=%d", article.getBoardId()));
 	}
 	
+	@RequestMapping("/usr/article/doResolve")
+	@ResponseBody
+	public String doResolve(int id) {
+		
+		Article article = articleService.getArticleById(id);
+		
+		if(article == null) {
+			return Util.jsHistoryBack(Util.f("%d번 게시물은 존재하지 않습니다.", id));
+		}
+		
+		if("해결".equals(article.getStatus())) {
+			return Util.jsHistoryBack("이미 해결된 이슈입니다.");
+		}
+		
+		articleService.resolveArticle(id, rq.getLoginedMemberId());
+		
+		return Util.jsReplace("해결 처리 완료", Util.f("detail?id=%d", id));
+	}
+	
+	@RequestMapping("/usr/article/doReopen")
+	@ResponseBody
+	public String doReopen(int id) {
+		Article article = articleService.getArticleById(id);
+		
+		if(article == null ) {
+			return Util.jsHistoryBack(Util.f("%d번 게시물은 존재하지 않습니다.", id));
+		}
+		
+		if(!"해결".equals(article.getStatus())) {
+			return Util.jsHistoryBack("해결된 이슈만 다시 열 수 있습니다.");
+		}
+		
+		articleService.reopenArticle(id);
+		
+		return Util.jsReplace("이슈를 다시 열었습니다.", Util.f("detail?id=%d", id));
+		
+	}
 }

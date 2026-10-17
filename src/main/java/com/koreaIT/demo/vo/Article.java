@@ -25,5 +25,5 @@ public class Article {
 	private String causeType;
 	private String status;
 	private Integer resolverId;
-	
+	private String resolverName;
 }
